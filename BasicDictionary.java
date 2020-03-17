@@ -10,37 +10,28 @@ public class BasicDictionary implements Dictionary {
 
 	@Override
 	public void importFile(String filename) throws Exception {
-		ArrayList<String> words = (ArrayList<String>) readFileAsLines(filename);
-		// ArrayList<String> wordsInOrder = new ArrayList();
-		// recursiveAdd(words, wordsInOrder, 0, words.size() - 1);
-		Collections.shuffle(words);
-		for (var word : words) {
-			add(word.trim());
+		if (tree.getRoot() != null) {
+			tree.clear();
 		}
+		List<String> words = readFileAsLines(filename);
+		recursiveAdd(words, 0, words.size() - 1);
 	}
 
 
-	private static void recursiveAdd(ArrayList<String> from_list, ArrayList<String> to_list, int start, int end) {
-		if (end - start == 0) {
-			to_list.add(from_list.get(start));
+	private void recursiveAdd(List<String> list, int start, int end) {
+		if (start > end) {
 			return;
 		}
-		if (end - start == 1) {
-			to_list.add(from_list.get(end));
-			to_list.add(from_list.get(start));
-			return;
-		}
-		int index = (start + end) / 2;
-
-		to_list.add(from_list.get(index));
-
-		recursiveAdd(from_list, to_list, index + 1, end);
-		recursiveAdd(from_list, to_list, start, index - 1);
+		int middle = ((start + end) / 2);
+		add(list.get(middle));
+		recursiveAdd(list, start, middle - 1);
+		recursiveAdd(list, middle + 1, end);
 	}
 
 
 	@Override
 	public void load(String filename) throws Exception {
+		tree.clear();
 		List<String> words = readFileAsLines(filename);
 		for (var word : words) {
 			add(word.trim());
@@ -74,7 +65,42 @@ public class BasicDictionary implements Dictionary {
 
 	@Override
 	public String[] find(String word) {
-		return tree.find(word);
+		/*
+		 * TODO get distance. If zero return null. if negative check if leaf, if not
+		 * traverse left if leaf return current node and parent if positive check if
+		 * leaf, if not traverse right if leaf return current node and parent
+		 * 
+		 */
+		// BinaryTreeNode node = tree.getRoot();
+		// // if tree does not exist, return null
+		// if (node == null) {
+		// return null;
+		// }
+		// Stack<BinaryTreeNode> stack = new Stack();
+		// int distance = word.compareToIgnoreCase(node.value);
+		// while (distance != 0) {// distance < previous distance
+		//
+		// // gets lexicographical distance between search word and current node
+		// distance = word.compareToIgnoreCase(node.value);
+		//
+		// // if the word matches return null
+		// if (distance == 0) {
+		// return null;
+		// }
+		//
+		// if (distance < 0) {
+		// if (node.left != null) {
+		// stack.push(node);
+		// node = node.left;
+		// }
+		// } else {
+		// if (node.right != null) {
+		// stack.push(node);
+		// node = node.right;
+		// }
+		// }
+		// }
+		return null;
 	}
 
 
@@ -94,6 +120,11 @@ public class BasicDictionary implements Dictionary {
 	@Override
 	public int getCount() {
 		return tree.getCount();
+	}
+
+
+	public void clear() {
+		tree.clear();
 	}
 
 }

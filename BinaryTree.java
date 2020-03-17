@@ -1,5 +1,7 @@
 package spellchecker;
 
+import static sbcc.Core.*;
+
 public class BinaryTree {
 
 	private BinaryTreeNode root = null;
@@ -11,34 +13,26 @@ public class BinaryTree {
 			count++;
 			return;
 		} else {
-			BinaryTreeNode curr = root;
+			BinaryTreeNode node = root;
 			int compare = 0;
 			while (true) {
-				compare = curr.value.compareTo(newNode.value);
+				compare = node.value.compareToIgnoreCase(newNode.value);
 				if (compare == 0) {
 					return;
 				}
-				if (compare > 0 && curr.left == null) {
-					curr.left = newNode;
+				if (compare > 0 && node.left == null) {
+					node.left = newNode;
 					count++;
 					return;
 				}
-				if (compare < 0 && curr.right == null) {
-					curr.right = newNode;
+				if (compare < 0 && node.right == null) {
+					node.right = newNode;
 					count++;
 					return;
 				}
-				curr = (compare > 0) ? curr.left : curr.right;
+				node = (compare > 0) ? node.left : node.right;
 			}
 		}
-	}
-
-
-	public String[] find(String word) {
-		BinaryTreeNode curr = root;
-
-		// TODO read documentation in dictionary.java
-		return null;
 	}
 
 

@@ -1,46 +1,53 @@
 package spellchecker;
 
+import static sbcc.Core.*;
+
+import java.io.*;
+
 public class BasicSpellChecker implements SpellChecker {
+
+	private BasicDictionary bd = new BasicDictionary();
+	private StringBuilder document = new StringBuilder();
 
 	@Override
 	public void importDictionary(String filename) throws Exception {
-		// TODO Auto-generated method stub
-
+		if (bd.getRoot() != null) {
+			bd.clear();
+		}
+		bd.importFile(filename);
 	}
 
 
 	@Override
 	public void loadDictionary(String filename) throws Exception {
-		// TODO Auto-generated method stub
-
+		bd.clear();
+		bd.load(filename);
 	}
 
 
 	@Override
 	public void saveDictionary(String filename) throws Exception {
-		// TODO Auto-generated method stub
-
+		bd.save(filename);
 	}
 
 
 	@Override
 	public void loadDocument(String filename) throws Exception {
-		// TODO Auto-generated method stub
-
+		document.append(readFile(filename));
 	}
 
 
 	@Override
 	public void saveDocument(String filename) throws Exception {
-		// TODO Auto-generated method stub
-
+		BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
+		writer.append(document);
+		writer.close();
 	}
 
 
 	@Override
 	public String getText() {
-		// TODO Auto-generated method stub
-		return null;
+		return document.toString();
 	}
 
 
@@ -53,8 +60,7 @@ public class BasicSpellChecker implements SpellChecker {
 
 	@Override
 	public void addWordToDictionary(String word) {
-		// TODO Auto-generated method stub
-
+		bd.add(word);
 	}
 
 
