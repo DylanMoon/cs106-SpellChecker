@@ -65,42 +65,63 @@ public class BasicDictionary implements Dictionary {
 
 	@Override
 	public String[] find(String word) {
-		/*
-		 * TODO get distance. If zero return null. if negative check if leaf, if not
-		 * traverse left if leaf return current node and parent if positive check if
-		 * leaf, if not traverse right if leaf return current node and parent
-		 * 
-		 */
-		// BinaryTreeNode node = tree.getRoot();
-		// // if tree does not exist, return null
-		// if (node == null) {
-		// return null;
-		// }
-		// Stack<BinaryTreeNode> stack = new Stack();
-		// int distance = word.compareToIgnoreCase(node.value);
-		// while (distance != 0) {// distance < previous distance
-		//
-		// // gets lexicographical distance between search word and current node
-		// distance = word.compareToIgnoreCase(node.value);
-		//
-		// // if the word matches return null
-		// if (distance == 0) {
-		// return null;
-		// }
-		//
-		// if (distance < 0) {
-		// if (node.left != null) {
-		// stack.push(node);
-		// node = node.left;
-		// }
-		// } else {
-		// if (node.right != null) {
-		// stack.push(node);
-		// node = node.right;
-		// }
-		// }
-		// }
-		return null;
+
+		BinaryTreeNode node = tree.getRoot();
+		// if tree does not exist, return null
+		if (node == null) {
+			return null;
+		}
+		Stack<BinaryTreeNode> lesser = new Stack();
+		Stack<BinaryTreeNode> greater = new Stack();
+		int distance = word.compareToIgnoreCase(node.value);
+		// int prevDistance = distance;
+		String[] suggestions = new String[2];
+		while (true) {// figure out a better way to do this
+			// if a match is found, return null
+			if (distance == 0) {
+				return null;
+			}
+			if (distance < 0) {
+				if (isLeftLeaf(node)) {
+					greater.add(node);
+					break;
+				}
+				greater.add(node);
+				node = node.left;
+				// prevDistance = distance;
+				distance = word.compareToIgnoreCase(node.value);
+				continue;
+
+			} else {
+				if (isRightLeaf(node)) {
+					lesser.add(node);
+					break;
+				}
+				lesser.add(node);
+				node = node.right;
+				// prevDistance = distance;
+				distance = word.compareToIgnoreCase(node.value);
+				continue;
+			}
+		}
+		if (!lesser.isEmpty()) {
+			suggestions[0] = lesser.pop().value;
+		}
+
+		if (!greater.isEmpty()) {
+			suggestions[1] = greater.pop().value;
+		}
+		return suggestions;
+	}
+
+
+	private boolean isRightLeaf(BinaryTreeNode node) {
+		return node.right == null;
+	}
+
+
+	private boolean isLeftLeaf(BinaryTreeNode node) {
+		return node.left == null;
 	}
 
 
