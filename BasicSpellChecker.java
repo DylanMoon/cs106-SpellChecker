@@ -9,7 +9,7 @@ public class BasicSpellChecker implements SpellChecker {
 
 	private BasicDictionary dictionary = new BasicDictionary();
 	private StringBuilder document = new StringBuilder();
-	private int startIndex = 0;
+	private int restartIndex = 0;
 
 	@Override
 	public void importDictionary(String filename) throws Exception {
@@ -60,13 +60,11 @@ public class BasicSpellChecker implements SpellChecker {
 		String[] result = new String[4];
 		var p = Pattern.compile("\\b[\\w']+\\b");
 		var m = p.matcher(document);
-		startIndex = (continueFromPrevious) ? startIndex : 0;
-		while (m.find(startIndex)) {
-			// loop through comparing matches to the dictionary using find on the match
-			// if a match is not found, populate the resutls String array and return it
-			// update the startIndex
+		restartIndex = (continueFromPrevious) ? restartIndex : 0;
+		while (m.find(restartIndex)) {
 			var word = m.group();
 			suggestions = dictionary.find(word);
+			restartIndex = m.end();
 			if (suggestions != null) {
 				result[0] = word;
 				result[1] = Integer.toString(m.start());
@@ -74,7 +72,6 @@ public class BasicSpellChecker implements SpellChecker {
 				result[3] = suggestions[1];
 				break;
 			}
-			startIndex = m.end();
 		}
 		return (result[0] == null) ? null : result;
 	}
@@ -88,10 +85,8 @@ public class BasicSpellChecker implements SpellChecker {
 
 	@Override
 	public void replaceText(int startIndex, int endIndex, String replacementText) {
-		// TODO Auto-generated method stub
-
-		// update the startIndex to start at the end of the updated string replacement
-
+		document.replace(startIndex, endIndex, replacementText);
+		restartIndex = startIndex + replacementText.length();
 	}
 
 }
