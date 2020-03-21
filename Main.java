@@ -20,7 +20,7 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		BasicDictionary dictionary = new BasicDictionary();
+		var dictionary = new BasicDictionary();
 
 		try {
 			dictionary.importFile("small_dictionary.txt");
@@ -29,9 +29,9 @@ public class Main {
 			e.printStackTrace();
 		}
 
-		String[] result = dictionary.find("elements");
+		var result = dictionary.find("elements");
 
-		print(result[0]);
+		print(result[0] + " " + result[1]);
 
 	}
 }

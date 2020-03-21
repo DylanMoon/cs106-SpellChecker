@@ -22,8 +22,8 @@ public class BasicDictionary implements Dictionary {
 		if (start > end) {
 			return;
 		}
-		int middle = ((start + end) / 2);
-		add(list.get(middle));
+		var middle = ((start + end) / 2);
+		add(list.get(middle).trim());
 		recursiveAdd(list, start, middle - 1);
 		recursiveAdd(list, middle + 1, end);
 	}
@@ -73,8 +73,8 @@ public class BasicDictionary implements Dictionary {
 		}
 		Stack<BinaryTreeNode> lesser = new Stack();
 		Stack<BinaryTreeNode> greater = new Stack();
-		int distance = word.compareToIgnoreCase(node.value);
-		String[] suggestions = new String[2];
+		var distance = word.compareToIgnoreCase(node.value);
+		var suggestions = new String[2];
 		while (true) {
 			distance = word.compareToIgnoreCase(node.value);
 			// if a match is found, return null
@@ -98,7 +98,6 @@ public class BasicDictionary implements Dictionary {
 		if (!lesser.isEmpty()) {
 			suggestions[0] = lesser.pop().value;
 		}
-
 		if (!greater.isEmpty()) {
 			suggestions[1] = greater.pop().value;
 		}
