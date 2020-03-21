@@ -14,23 +14,22 @@ public class BinaryTree {
 			return;
 		} else {
 			BinaryTreeNode node = root;
-			int compare = 0;
 			while (true) {
-				compare = node.value.compareToIgnoreCase(newNode.value);
+				var compare = newNode.value.compareToIgnoreCase(node.value);
 				if (compare == 0) {
 					return;
 				}
-				if (compare > 0 && node.left == null) {
+				if (compare < 0 && node.left == null) {
 					node.left = newNode;
 					count++;
 					return;
 				}
-				if (compare < 0 && node.right == null) {
+				if (compare > 0 && node.right == null) {
 					node.right = newNode;
 					count++;
 					return;
 				}
-				node = (compare > 0) ? node.left : node.right;
+				node = (compare < 0) ? node.left : node.right;
 			}
 		}
 	}

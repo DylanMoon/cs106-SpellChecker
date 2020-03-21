@@ -20,18 +20,5 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		var dictionary = new BasicDictionary();
-
-		try {
-			dictionary.importFile("small_dictionary.txt");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		var result = dictionary.find("elements");
-
-		print(result[0] + " " + result[1]);
-
 	}
 }

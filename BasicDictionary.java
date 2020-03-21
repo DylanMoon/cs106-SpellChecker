@@ -1,5 +1,6 @@
 package spellchecker;
 
+import static java.lang.Math.*;
 import static sbcc.Core.*;
 
 import java.io.*;
@@ -22,7 +23,7 @@ public class BasicDictionary implements Dictionary {
 		if (start > end) {
 			return;
 		}
-		var middle = ((start + end) / 2);
+		int middle = (int) round((start + end) / 2.0);
 		add(list.get(middle).trim());
 		recursiveAdd(list, start, middle - 1);
 		recursiveAdd(list, middle + 1, end);
@@ -95,16 +96,9 @@ public class BasicDictionary implements Dictionary {
 				node = node.right;
 			}
 		}
-		if (!lesser.isEmpty()) {
-			suggestions[0] = lesser.pop().value;
-		} else {
-			suggestions[0] = "";
-		}
-		if (!greater.isEmpty()) {
-			suggestions[1] = greater.pop().value;
-		} else {
-			suggestions[1] = "";
-		}
+		suggestions[0] = (lesser.isEmpty()) ? "" : lesser.pop().value;
+		suggestions[1] = (greater.isEmpty()) ? "" : greater.pop().value;
+
 		return suggestions;
 	}
 
