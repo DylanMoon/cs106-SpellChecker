@@ -15,6 +15,7 @@ import static org.apache.commons.lang3.StringUtils.*;
  * Dylan Moon CS106-62502
  *
  */
+
 public class Main {
 
 	public static void main(String[] args) {
@@ -22,7 +23,7 @@ public class Main {
 		BasicDictionary dictionary = new BasicDictionary();
 		var start = nanoTime();
 		try {
-			dictionary.importFile("full_dictionary.txt");
+			dictionary.importFile("small_dictionary.txt");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -31,16 +32,19 @@ public class Main {
 		var diff = (nanoTime() - start) / 1.0e6;
 		println("build took: " + diff + "ms");
 
-		start = nanoTime();
-		try {
-			dictionary.load("my_test.txt");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		BinaryTreeNode node = dictionary.getRoot();
+		println("\ntree depth: " + getTreeDepth(node));
 
-		diff = (nanoTime() - start) / 1.0e6;
-		println("load took: " + diff + "ms");
+		// start = nanoTime();
+		// try {
+		// dictionary.load("my_test.txt");
+		// } catch (Exception e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
+		//
+		// diff = (nanoTime() - start) / 1.0e6;
+		// println("load took: " + diff + "ms");
 		//
 		// try {
 		// dictionary.save("my_test.txt");
@@ -49,19 +53,13 @@ public class Main {
 		// e.printStackTrace();
 		// }
 
-		BinaryTreeNode node = dictionary.getRoot();
-
 		println("\nwords in tree:" + dictionary.getCount());
 
-		println("\ntree depth: " + getTreeDepth(node));
+		// println("\ntree depth: " + getTreeDepth(node));
 
-		// println("root node = " + dictionary.getRoot().value);
-		// println("root's left node = " + dictionary.getRoot().left.value);
-		// println("root's right node = " + dictionary.getRoot().right.value);
+		// printTreeInOrder(node);
+		// println("\n");
 
-		// node = dictionary.getRoot();
-
-		// printTreeLevelOrder(node);
 	}
 
 
@@ -79,7 +77,7 @@ public class Main {
 		if (node == null) {
 			return;
 		}
-		print(node.value + ", ");
+		println(node.value);
 		printTreeLevelOrder(node.left);
 		printTreeLevelOrder(node.right);
 	}
