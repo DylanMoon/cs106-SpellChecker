@@ -76,29 +76,23 @@ public class BasicDictionary implements Dictionary {
 		int distance = word.compareToIgnoreCase(node.value);
 		String[] suggestions = new String[2];
 		while (true) {
+			distance = word.compareToIgnoreCase(node.value);
 			// if a match is found, return null
 			if (distance == 0) {
 				return null;
 			}
 			if (distance < 0) {
-				if (isLeftLeaf(node)) {
-					greater.add(node);
-					break;
-				}
 				greater.add(node);
-				node = node.left;
-				distance = word.compareToIgnoreCase(node.value);
-				continue;
-
-			} else {
-				if (isRightLeaf(node)) {
-					lesser.add(node);
+				if (isLeftLeaf(node)) {
 					break;
 				}
+				node = node.left;
+			} else {
 				lesser.add(node);
+				if (isRightLeaf(node)) {
+					break;
+				}
 				node = node.right;
-				distance = word.compareToIgnoreCase(node.value);
-				continue;
 			}
 		}
 		if (!lesser.isEmpty()) {
