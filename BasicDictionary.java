@@ -74,9 +74,8 @@ public class BasicDictionary implements Dictionary {
 		Stack<BinaryTreeNode> lesser = new Stack();
 		Stack<BinaryTreeNode> greater = new Stack();
 		int distance = word.compareToIgnoreCase(node.value);
-		// int prevDistance = distance;
 		String[] suggestions = new String[2];
-		while (true) {// figure out a better way to do this
+		while (true) {
 			// if a match is found, return null
 			if (distance == 0) {
 				return null;
@@ -88,7 +87,6 @@ public class BasicDictionary implements Dictionary {
 				}
 				greater.add(node);
 				node = node.left;
-				// prevDistance = distance;
 				distance = word.compareToIgnoreCase(node.value);
 				continue;
 
@@ -99,7 +97,6 @@ public class BasicDictionary implements Dictionary {
 				}
 				lesser.add(node);
 				node = node.right;
-				// prevDistance = distance;
 				distance = word.compareToIgnoreCase(node.value);
 				continue;
 			}
