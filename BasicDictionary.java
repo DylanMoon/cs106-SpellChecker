@@ -1,7 +1,7 @@
 package spellchecker;
 
-import static java.lang.Math.*;
 import static sbcc.Core.*;
+import static java.lang.Math.*;
 
 import java.io.*;
 import java.util.*;
@@ -24,7 +24,7 @@ public class BasicDictionary implements Dictionary {
 			return;
 		}
 		int middle = (int) round((start + end) / 2.0);
-		add(list.get(middle).trim());
+		add(list.get(middle));
 		recursiveAdd(list, start, middle - 1);
 		recursiveAdd(list, middle + 1, end);
 	}
@@ -35,7 +35,7 @@ public class BasicDictionary implements Dictionary {
 		tree.clear();
 		List<String> words = readFileAsLines(filename);
 		for (var word : words) {
-			add(word.trim());
+			add(word);
 		}
 	}
 
@@ -115,8 +115,7 @@ public class BasicDictionary implements Dictionary {
 
 	@Override
 	public void add(String word) {
-		BinaryTreeNode newNode = new BinaryTreeNode(word);
-		tree.add(newNode);
+		tree.add(word.trim());
 	}
 
 

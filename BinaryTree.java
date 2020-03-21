@@ -7,25 +7,24 @@ public class BinaryTree {
 	private BinaryTreeNode root = null;
 	private int count = 0;
 
-	public void add(BinaryTreeNode newNode) {
+	public void add(String word) {
 		if (root == null) {
-			root = newNode;
+			root = new BinaryTreeNode(word);
 			count++;
 			return;
 		} else {
 			BinaryTreeNode node = root;
 			while (true) {
-				var compare = newNode.value.compareToIgnoreCase(node.value);
+				var compare = word.compareToIgnoreCase(node.value);
 				if (compare == 0) {
 					return;
 				}
 				if (compare < 0 && node.left == null) {
-					node.left = newNode;
+					node.left = new BinaryTreeNode(word);
 					count++;
 					return;
-				}
-				if (compare > 0 && node.right == null) {
-					node.right = newNode;
+				} else if (compare > 0 && node.right == null) {
+					node.right = new BinaryTreeNode(word);
 					count++;
 					return;
 				}
