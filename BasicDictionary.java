@@ -2,7 +2,6 @@ package spellchecker;
 
 import static sbcc.Core.*;
 import static java.lang.Math.*;
-
 import java.io.*;
 import java.util.*;
 

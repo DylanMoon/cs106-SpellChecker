@@ -14,11 +14,8 @@ public class BinaryTree {
 			return;
 		} else {
 			BinaryTreeNode node = root;
-			while (true) {
-				var compare = word.compareToIgnoreCase(node.value);
-				if (compare == 0) {
-					return;
-				}
+			var compare = word.compareToIgnoreCase(node.value);
+			while (compare != 0) {
 				if (compare < 0 && node.left == null) {
 					node.left = new BinaryTreeNode(word);
 					count++;
@@ -29,6 +26,7 @@ public class BinaryTree {
 					return;
 				}
 				node = (compare < 0) ? node.left : node.right;
+				compare = word.compareToIgnoreCase(node.value);
 			}
 		}
 	}
