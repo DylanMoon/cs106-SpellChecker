@@ -14,18 +14,18 @@ public class BasicDictionary implements Dictionary {
 			tree.clear();
 		}
 		List<String> words = readFileAsLines(filename);
-		recursiveAdd(words, 0, words.size() - 1);
+		recursiveImportHelper(words, 0, words.size() - 1);
 	}
 
 
-	private void recursiveAdd(List<String> list, int start, int end) {
+	private void recursiveImportHelper(List<String> list, int start, int end) {
 		if (start > end) {
 			return;
 		}
 		int middle = (int) round((start + end) / 2.0);
 		add(list.get(middle));
-		recursiveAdd(list, start, middle - 1);
-		recursiveAdd(list, middle + 1, end);
+		recursiveImportHelper(list, start, middle - 1);
+		recursiveImportHelper(list, middle + 1, end);
 	}
 
 
@@ -42,24 +42,18 @@ public class BasicDictionary implements Dictionary {
 	@Override
 	public void save(String filename) throws Exception {
 		BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
-		BinaryTreeNode node = tree.getRoot();
-		Stack<BinaryTreeNode> stack = new Stack();
-		while (node != null) {
-			writer.append(node.value + "\n");
-			if (node.right != null) {
-				stack.add(node.right);
-			}
-			if (node.left != null) {
-				node = node.left;
-				continue;
-			}
-			if (!stack.isEmpty()) {
-				node = stack.pop();
-				continue;
-			}
-			node = null;
-		}
+		saveHelper(writer, tree.getRoot());
 		writer.close();
+	}
+
+
+	private void saveHelper(BufferedWriter writer, BinaryTreeNode node) throws IOException {
+		if (node == null) {
+			return;
+		}
+		writer.append((node.value + "\n"));
+		saveHelper(writer, node.left);
+		saveHelper(writer, node.right);
 	}
 
 

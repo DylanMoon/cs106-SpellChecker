@@ -2,6 +2,7 @@ package spellchecker;
 
 import static sbcc.Core.*;
 
+import java.io.*;
 import java.util.*;
 
 import spellchecker.Dictionary;
