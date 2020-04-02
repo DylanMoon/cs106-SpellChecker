@@ -2,6 +2,8 @@ package spellchecker;
 
 import static sbcc.Core.*;
 import static java.lang.Math.*;
+import static java.lang.System.*;
+
 import java.io.*;
 import java.util.*;
 
@@ -51,7 +53,7 @@ public class BasicDictionary implements Dictionary {
 		if (node == null) {
 			return;
 		}
-		writer.append((node.value + "\n"));
+		writer.append((node.value + lineSeparator()));
 		saveHelper(writer, node.left);
 		saveHelper(writer, node.right);
 	}
