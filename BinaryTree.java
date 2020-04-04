@@ -8,12 +8,14 @@ public class BinaryTree {
 	private int count = 0;
 
 	public void add(String word) {
+		if (word.equals("")) {
+			return;
+		}
 		if (root == null) {
 			root = new BinaryTreeNode(word);
 			count++;
-			return;
 		} else {
-			BinaryTreeNode node = root;
+			var node = root;
 			var compare = word.compareToIgnoreCase(node.value);
 			while (compare != 0) {
 				if (compare < 0 && node.left == null) {

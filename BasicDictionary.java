@@ -9,6 +9,25 @@ import java.util.*;
 public class BasicDictionary implements Dictionary {
 	private BinaryTree tree = new BinaryTree();
 
+	// @Override
+	// public void importFile(String filename) throws Exception {
+	// if (tree.getRoot() != null) {
+	// tree.clear();
+	// }
+	// List<String> words = readFileAsLines(filename);
+	// recursiveImportHelper(words, 0, words.size() - 1);
+	// }
+
+	// private void recursiveImportHelper(List<String> list, int start, int end) {
+	// if (start > end) {
+	// return;
+	// }
+	// int middle = (int) ceil((start + end) / 2.0);
+	// add(list.get(middle));
+	// recursiveImportHelper(list, middle + 1, end);
+	// recursiveImportHelper(list, start, middle - 1);
+	// }
+
 	@Override
 	public void importFile(String filename) throws Exception {
 		if (tree.getRoot() != null) {
@@ -23,34 +42,11 @@ public class BasicDictionary implements Dictionary {
 		if (start > end) {
 			return;
 		}
-		int middle = (int) ceil((start + end) / 2.0);
-		add(list.get(middle));
-		recursiveImportHelper(list, middle + 1, end);
-		recursiveImportHelper(list, start, middle - 1);
-
-	}
-
-
-	// @Override
-	public void importFile2(String filename) throws Exception {
-		if (tree.getRoot() != null) {
-			tree.clear();
-		}
-		List<String> words = readFileAsLines(filename);
-		recursiveImportHelper2(words, 0, words.size() - 1);
-	}
-
-
-	private void recursiveImportHelper2(List<String> list, int start, int end) {
-		if (start > end) {
-			return;
-		}
 
 		int root = start + getRoot(end - start + 1);
-		// add(list.get(root));
-		println(list.get(root));
-		recursiveImportHelper2(list, start, root - 1);
-		recursiveImportHelper2(list, root + 1, end);
+		add(list.get(root));
+		recursiveImportHelper(list, start, root - 1);
+		recursiveImportHelper(list, root + 1, end);
 
 	}
 
