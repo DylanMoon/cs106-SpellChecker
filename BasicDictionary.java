@@ -27,7 +27,6 @@ public class BasicDictionary implements Dictionary {
 		add(list.get(root));
 		recursiveImportHelper(list, start, root - 1);
 		recursiveImportHelper(list, root + 1, end);
-
 	}
 
 
