@@ -20,8 +20,5 @@ public class Main {
 
 	public static void main(String[] args) throws Exception {
 
-		BasicDictionary bd = new BasicDictionary();
-		bd.importFile("my_test_alpha.txt");
-
 	}
 }
