@@ -17,7 +17,7 @@ import static org.apache.commons.lang3.StringUtils.*;
  *
  */
 public class Main {
-	static final int NUM_NODES = 24;
+	static final int NUM_NODES = 175169;
 
 	public static void main(String[] args) throws Exception {
 		var lastL = 0;
@@ -29,22 +29,15 @@ public class Main {
 				printf("%10s%14s\n", i - 1, level - 1);
 			}
 		}
-		int nLevels = levels(NUM_NODES);
-		int nLeftOverNodes = leftOverNodes(NUM_NODES);
-		int firstIndex = getRoot(NUM_NODES);
-		int completeRows = nCompleteRows(NUM_NODES);
-
-		println("Number of nodes: " + NUM_NODES);
-		println("Number of levels: " + nLevels);
-		println("Number of left over nodes: " + nLeftOverNodes);
-		println("Number of complete rows: " + completeRows);
-		println();
-		println("Root index for a tree with " + NUM_NODES + " nodes is: " + firstIndex);
-
-		// BasicDictionary bd = new BasicDictionary();
-		// bd.importFile("full_dictionary.txt");
-		// println();
-		// println(getTreeDepth(bd.getRoot()));
+		var lastRoot = 0;
+		for (int i = 0; i <= NUM_NODES; i++) {
+			var root = getRoot(i);
+			if (root > lastRoot) {
+				lastRoot = root;
+				println("Root index for a tree with " + i + " nodes is: " + root);
+			}
+		}
+		println("Wrong root for a tree with " + NUM_NODES + " nodes is: " + ((int) ceil(NUM_NODES / 2)));
 
 	}
 
