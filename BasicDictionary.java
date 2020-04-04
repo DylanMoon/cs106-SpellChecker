@@ -23,7 +23,6 @@ public class BasicDictionary implements Dictionary {
 		if (start > end) {
 			return;
 		}
-
 		int root = start + getRoot(end - start + 1);
 		add(list.get(root));
 		recursiveImportHelper(list, start, root - 1);
