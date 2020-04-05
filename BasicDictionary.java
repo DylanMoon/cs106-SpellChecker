@@ -22,8 +22,8 @@ public class BasicDictionary implements Dictionary {
 	private void recursiveImportHelper(List<String> list, int start, int end) {
 		if (start > end) {
 			return;
-		}
-		int root = start + getRoot(end - start + 1);
+		} // if start == end, no need to calculate a root index, just add it.
+		var root = (start == end) ? start : start + getRoot(end - start + 1);
 		add(list.get(root));
 		recursiveImportHelper(list, start, root - 1);
 		recursiveImportHelper(list, root + 1, end);
