@@ -23,7 +23,7 @@ public class BasicDictionary implements Dictionary {
 		if (start > end) {
 			return;
 		} // if start == end, no need to calculate a root index, just add it.
-		var root = (start == end) ? start : start + getRoot(end - start + 1);
+		var root = (start == end) ? start : start + getRootIndex(end - start + 1);
 		add(list.get(root));
 		recursiveImportHelper(list, start, root - 1);
 		recursiveImportHelper(list, root + 1, end);
@@ -130,10 +130,10 @@ public class BasicDictionary implements Dictionary {
 	}
 
 
-	private int getRoot(int nodes) {
+	private int getRootIndex(int nodes) {
 		var index = 0;
 		var completeRows = nCompleteRows(nodes);
-		var orphans = leftOverNodes(nodes);
+		var orphans = nOrphans(nodes);
 		for (int i = 0; i < completeRows - 1; i++) {// runs n * 2 + 1 a complete number of rows -1 times
 			index = (index * 2) + 1;
 		}
@@ -141,9 +141,9 @@ public class BasicDictionary implements Dictionary {
 			return index;
 		}
 		// if the number of orphan nodes is greater or equal to the half of the final
-		// row complete one more cycle of n * 2 + 1
-		// if the number of orphan nodes is less than half of the final row offset the
-		// root index by the number of orphans
+		// row's capacity, complete one more cycle of n * 2 + 1
+		// if the number of orphan nodes is less than half of the final row's capacity,
+		// offset the root index by the number of orphans
 		return ((((int) pow(2, completeRows)) / 2) <= orphans) ? (index * 2) + 1 : index + orphans;
 	}
 
@@ -157,16 +157,16 @@ public class BasicDictionary implements Dictionary {
 	}
 
 
-	private int leftOverNodes(int nodes) {
+	private int nOrphans(int nodes) {
 		if (nodes == 0) {
 			return 0;
 		}
-		var level = levels(nodes);
+		var level = nLevels(nodes);
 		return (((int) pow(2, level) - 1) == nodes) ? 0 : (nodes - ((int) pow(2, level - 1) - 1));
 	}
 
 
-	private int levels(int x) {
+	private int nLevels(int x) {
 		if (x == 0) {
 			return 0;
 		}
