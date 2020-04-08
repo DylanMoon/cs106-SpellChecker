@@ -8,9 +8,10 @@ import java.util.*;
 
 public class BasicDictionary implements Dictionary {
 	private BinaryTree tree = new BinaryTree();
+	private int counter = 0;
 
 	@Override
-	public void importFile(String filename) throws Exception {
+	public void importFile(String filename) throws Exception {// imports in place
 		if (tree.getRoot() != null) {
 			tree.clear();
 		}
@@ -45,6 +46,31 @@ public class BasicDictionary implements Dictionary {
 		BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
 		saveHelper(writer, tree.getRoot());
 		writer.close();
+	}
+
+
+	public void importFile2(String filename) throws Exception {// does not build in place
+		if (tree.getRoot() != null) {
+			tree.clear();
+		}
+		List<String> words = readFileAsLines(filename);
+		String[] wordsInOrder = new String[words.size()];
+		counter = 0;
+		recursiveImportHelper2(words, wordsInOrder, 0);
+		for (var word : wordsInOrder) {
+			add(word);
+		}
+	}
+
+
+	private void recursiveImportHelper2(List<String> listIn, String[] listOut, int index) {
+		if (index >= listIn.size()) {
+			return;
+		}
+		recursiveImportHelper2(listIn, listOut, (index * 2) + 1);
+		listOut[index] = listIn.get(counter);
+		counter++;
+		recursiveImportHelper2(listIn, listOut, (index * 2) + 2);
 	}
 
 

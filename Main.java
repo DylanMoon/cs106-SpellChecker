@@ -1,12 +1,9 @@
 package spellchecker;
 
 import static sbcc.Core.*;
-
 import java.io.*;
 import java.util.*;
-
 import spellchecker.Dictionary;
-
 import static java.lang.Math.*;
 import static java.lang.System.*;
 import static org.apache.commons.lang3.StringUtils.*;
@@ -18,6 +15,6 @@ import static org.apache.commons.lang3.StringUtils.*;
  */
 
 public class Main {
-	static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws Exception {
 	}
 }
